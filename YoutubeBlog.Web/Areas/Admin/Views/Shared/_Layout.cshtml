@@ -19,6 +19,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 
+    <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="~/sneat/assets/vendor/fonts/boxicons.css" />
 
@@ -371,13 +373,18 @@
     </div>
 
 
+
+
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="~/sneat/assets/vendor/libs/jquery/jquery.js"></script>
     <script src="~/sneat/assets/vendor/libs/popper/popper.js"></script>
     <script src="~/sneat/assets/vendor/js/bootstrap.js"></script>
     <script src="~/sneat/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
 
+    <script src="https://cdn.datatables.net/buttons/1.6.3/js/dataTables.buttons.min.js" crossorigin="anonymous"></script>
     <script src="~/sneat/assets/vendor/js/menu.js"></script>
     <!-- endbuild -->
     <!-- Vendors JS -->
@@ -388,7 +395,7 @@
 
     <!-- Page JS -->
     <script src="~/sneat/assets/js/dashboards-analytics.js"></script>
-
+    @await RenderSectionAsync("Scripts",false);
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
