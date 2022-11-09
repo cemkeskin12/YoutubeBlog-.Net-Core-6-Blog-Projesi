@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore.Migrations;
 using System.Net.WebSockets;
 using System.Security.Claims;
-using System.Security.Cryptography.X509Certificates;
 using YoutubeBlog.Data.UnitOfWorks;
 using YoutubeBlog.Entity.DTOs.Articles;
 using YoutubeBlog.Entity.Entities;
@@ -27,8 +25,8 @@ namespace YoutubeBlog.Service.Services.Concrete
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
             this.httpContextAccessor = httpContextAccessor;
-            this.imageHelper = imageHelper;
             _user = httpContextAccessor.HttpContext.User;
+            this.imageHelper = imageHelper;
         }
 
         public async Task CreateArticleAsync(ArticleAddDto articleAddDto)
@@ -37,8 +35,8 @@ namespace YoutubeBlog.Service.Services.Concrete
             var userId = _user.GetLoggedInUserId();
             var userEmail = _user.GetLoggedInEmail();
 
-            var imageResult = await imageHelper.Upload(articleAddDto.Title, articleAddDto.Photo, ImageType.Post);
-            Image image = new(imageResult.FullName, articleAddDto.Photo.ContentType, userEmail);
+            var imageUpload = await imageHelper.Upload(articleAddDto.Title, articleAddDto.Photo, ImageType.Post);
+            Image image = new(imageUpload.FullName, articleAddDto.Photo.ContentType, userEmail);
             await unitOfWork.GetRepository<Image>().AddAsync(image);
 
             var article = new Article(articleAddDto.Title, articleAddDto.Content, userId, userEmail, articleAddDto.CategoryId, image.Id);
@@ -59,7 +57,7 @@ namespace YoutubeBlog.Service.Services.Concrete
         public async Task<ArticleDto> GetArticleWithCategoryNonDeletedAsync(Guid articleId)
         {
 
-            var article = await unitOfWork.GetRepository<Article>().GetAsync(x => !x.IsDeleted && x.Id == articleId, x => x.Category, x => x.Image);
+            var article = await unitOfWork.GetRepository<Article>().GetAsync(x => !x.IsDeleted && x.Id == articleId, x => x.Category, i => i.Image);
             var map = mapper.Map<ArticleDto>(article);
 
             return map;
@@ -67,24 +65,25 @@ namespace YoutubeBlog.Service.Services.Concrete
         public async Task<string> UpdateArticleAsync(ArticleUpdateDto articleUpdateDto)
         {
             var userEmail = _user.GetLoggedInEmail();
-            var article = await unitOfWork.GetRepository<Article>().GetAsync(x => !x.IsDeleted && x.Id == articleUpdateDto.Id, x => x.Category, x => x.Image);
+            var article = await unitOfWork.GetRepository<Article>().GetAsync(x => !x.IsDeleted && x.Id == articleUpdateDto.Id, x => x.Category, i => i.Image);
 
+            if(articleUpdateDto.Photo != null)
+            {
+                 imageHelper.Delete(article.Image.FileName);
 
-            var result = imageHelper.Delete(article.Image.FileName);
+                var imageUpload = await imageHelper.Upload(articleUpdateDto.Title,articleUpdateDto.Photo,ImageType.Post);
+                Image image = new(imageUpload.FullName,articleUpdateDto.Photo.ContentType,userEmail);
+                await unitOfWork.GetRepository<Image>().AddAsync(image);
 
-            var imageUpload = await imageHelper.Upload(articleUpdateDto.Title, articleUpdateDto.Photo, ImageType.Post);
-            Image image = new(imageUpload.FullName, articleUpdateDto.Photo.ContentType, userEmail);
-            await unitOfWork.GetRepository<Image>().AddAsync(image);
-            article.ImageId = image.Id;
+                article.ImageId = image.Id;
 
-
+            }
 
             article.Title = articleUpdateDto.Title;
             article.Content = articleUpdateDto.Content;
             article.CategoryId = articleUpdateDto.CategoryId;
             article.ModifiedDate = DateTime.Now;
             article.ModifiedBy = userEmail;
-
 
             await unitOfWork.GetRepository<Article>().UpdateAsync(article);
             await unitOfWork.SaveAsync();

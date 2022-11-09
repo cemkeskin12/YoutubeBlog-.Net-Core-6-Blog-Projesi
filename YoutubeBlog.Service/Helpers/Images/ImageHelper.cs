@@ -105,16 +105,11 @@ namespace YoutubeBlog.Service.Helpers.Images
             };
         }
 
-        public bool Delete(string imageName)
+        public void Delete(string imageName)
         {
             var fileToDelete = Path.Combine($"{wwwroot}/{imgFolder}/{imageName}");
             if (File.Exists(fileToDelete))
-            {
                 File.Delete(fileToDelete);
-                return true;
-            }
-            else
-                return false;
 
         }
     }

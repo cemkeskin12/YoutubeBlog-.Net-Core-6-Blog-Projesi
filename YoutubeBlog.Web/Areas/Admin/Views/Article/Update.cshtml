@@ -40,12 +40,11 @@
                         <div class="row">
                         <div class="form-group col-md-6">
                             <label asp-for="Image.FileName" for="defaultFormControlInput" class="form-label d-block">Mevcut Resim</label>
-                            <img src="~/images/@Model.Image.FileName" class="mb-2" alt="@Model.Image.FileName" style="width:30em;height:30em;" />
-                            <span asp-validation-for="Image.FileName" class="text-danger"></span>
+                            <img style="height:25em; width:25em;" class="mb-3" src="~/images/@Model.Image.FileName" alt="@Model.Title" />
                         </div>
-                        <div class="form-group col-md-6">
-                            <label asp-for="Photo" for="defaultFormControlInput" class="form-label">Resim Seçiniz</label>
-                            <input asp-for="Photo" type="file" accept="image/*" class="form-control mb-3" id="defaultFormControlInput" placeholder="İçerik" aria-describedby="defaultFormControlHelp"></input>
+                            <div class="form-group col-md-6">
+                            <label asp-for="Photo" for="defaultFormControlInput" class="form-label">Resim seçiniz</label>
+                            <input asp-for="Photo" type="file" accept="image/*" class="form-control mb-3" id="defaultFormControlInput" aria-describedby="defaultFormControlHelp">
                             <span asp-validation-for="Photo" class="text-danger"></span>
                         </div>
                         </div>

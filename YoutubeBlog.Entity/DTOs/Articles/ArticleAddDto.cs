@@ -14,8 +14,8 @@ namespace YoutubeBlog.Entity.DTOs.Articles
         public string Content { get; set; }
         public Guid CategoryId { get; set; }
 
-
         public IFormFile Photo { get; set; }
+
         public IList<CategoryDto> Categories { get; set; }
     }
 }
