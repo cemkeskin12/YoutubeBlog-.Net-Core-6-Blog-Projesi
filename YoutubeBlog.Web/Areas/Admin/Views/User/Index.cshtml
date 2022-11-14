@@ -1,0 +1,67 @@
+﻿@model List<UserDto>
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">Kullanıcı Yönetimi /</span> Kullanıcılar
+    </h4>
+
+    <!-- Basic Bootstrap Table -->
+    <div class="card">
+        <div class="table-responsive text-nowrap m-5">
+
+            <a class="btn btn-success mb-3" asp-area="Admin" asp-controller="User" asp-action="Add">
+                Kullanıcı Ekle <i class="bx bx-plus"></i>
+            </a>
+
+            <table class="table table-bordered" id="usersTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>İsim</th>
+                        <th>Soyisim</th>
+                        <th>Email</th>
+                        <th>Telefon Numarası</th>
+                        <th>Rol</th>
+                        <th>Email doğrulaması</th>
+                        <th>Bağlantı hataları</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>İsim</th>
+                        <th>Soyisim</th>
+                        <th>Email</th>
+                        <th>Telefon Numarası</th>
+                        <th>Rol</th>
+                        <th>Email doğrulaması</th>
+                        <th>Bağlantı hataları</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </tfoot>
+                <tbody class="table-border-bottom-0">
+                    @foreach (var user in Model)
+                    {
+                        <tr name="@user.Id">
+                            <td>@user.FirstName</td>
+                            <td>@user.LastName</td>
+                            <td>@user.Email</td>
+                            <td>@user.PhoneNumber</td>
+                            <td>@user.Role</td>
+                            <td>@(user.EmailConfirmed ? "Doğrulanmış" : "Doğrulanmamış")</td>
+                            <td>@user.AccessFailedCount</td>
+                            <td>
+                                <a class="btn btn-primary btn-sm" data-id="@user.Id" asp-area="Admin" asp-controller="User" asp-action="Update" asp-route-userId="@user.Id"><i class="bx bxs-edit"></i></a>
+                                <a class="btn btn-danger btn-sm" data-id="@user.Id" asp-area="Admin" asp-controller="User" asp-action="Delete" asp-route-userId="@user.Id"><i class="bx bx-minus-circle"></i></a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/userIndex.js" type="application/ecmascript"></script>
+}
