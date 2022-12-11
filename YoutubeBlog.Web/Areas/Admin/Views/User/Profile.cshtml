@@ -1,0 +1,78 @@
+﻿@model UserProfileDto
+
+<div class="container-xxl flex-grow-1 container-p-y">
+
+
+    <h4 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">Profil Ayarları /</span> Profilim
+    </h4>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <h5 class="card-header">Profil Bilgilerim</h5>
+                <form asp-controller="User" asp-action="Profile" method="POST" enctype="multipart/form-data">
+                    <!-- Account -->
+                    <div class="card-body">
+
+                        <div class="d-flex align-items-start align-items-sm-center gap-4">
+                            <img src="~/images/@Model.Image.FileName" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
+                            <div class="button-wrapper">
+                                <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                    <i class="bx bx-upload d-block d-sm-none"></i>
+                                    <input asp-for="Photo" type="file" accept="image/*" class="formaccount-file-input" id="defaultFormControlInput" aria-describedby="defaultFormControlHelp">
+                                </label>
+
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="my-0">
+                    <div class="card-body">
+
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <label asp-for="FirstName" class="form-label">İsim</label>
+                                <input asp-for="FirstName" class="form-control" type="text" autofocus="">
+                                <span asp-validation-for="FirstName"></span>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label asp-for="LastName" class="form-label">Soyisim</label>
+                                <input asp-for="LastName" class="form-control" type="text" autofocus="">
+                                <span asp-validation-for="LastName"></span>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label asp-for="Email" class="form-label">Email Adresi</label>
+                                <input asp-for="Email" class="form-control" type="text" autofocus="">
+                                <span asp-validation-for="Email"></span>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label asp-for="PhoneNumber" class="form-label">Telefon Numarası</label>
+                                <input asp-for="PhoneNumber" class="form-control" type="text" autofocus="">
+                                <span asp-validation-for="PhoneNumber"></span>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label asp-for="CurrentPassword" class="form-label">Mevcut Parola</label>
+                                <input asp-for="CurrentPassword" class="form-control" type="text" autofocus="">
+                                <span asp-validation-for="CurrentPassword"></span>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label asp-for="NewPassword" class="form-label">Yeni Parola (Opsiyonel)</label>
+                                <input asp-for="NewPassword" class="form-control" type="text" autofocus="">
+                                <span asp-validation-for="NewPassword"></span>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <button type="submit" class="btn btn-primary me-2">Profili Güncelle</button>
+                        </div>
+
+                    </div>
+                    <!-- /Account -->
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

@@ -8,7 +8,7 @@ namespace YoutubeBlog.Entity.Entities
 
         public Image()
         {
-
+            Users = new HashSet<AppUser>();
         }
         public Image(string fileName,string fileType,string createdBy)
         {

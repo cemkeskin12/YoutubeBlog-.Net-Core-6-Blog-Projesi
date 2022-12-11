@@ -1,0 +1,52 @@
+﻿@model UserDto
+
+<li class="nav-item navbar-dropdown dropdown-user dropdown">
+    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+        <div class="avatar avatar-online">
+            <img src="~/sneat/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle">
+        </div>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+            <a class="dropdown-item" href="#">
+                <div class="d-flex">
+                    <div class="flex-shrink-0 me-3">
+                        <div class="avatar avatar-online">
+                            <img src="~/sneat/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle">
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <span class="fw-semibold d-block">@Model.FirstName @Model.LastName</span>
+                        <small class="text-muted">@Model.Role</small>
+                    </div>
+                </div>
+            </a>
+        </li>
+        <li>
+            <div class="dropdown-divider"></div>
+        </li>
+        <li>
+            <a asp-area="Admin" asp-controller="User" asp-action="Profile" class="dropdown-item">
+                <i class="bx bx-user me-2"></i>
+                <span class="align-middle">Profilim</span>
+            </a>
+        </li>
+        <li>
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="dropdown-item" >
+                <span class="d-flex align-items-center align-middle">
+                    <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+                    <span class="flex-grow-1 align-middle">Siteye dön</span>
+                </span>
+            </a>
+        </li>
+        <li>
+            <div class="dropdown-divider"></div>
+        </li>
+        <li>
+            <a class="dropdown-item" asp-area="Admin" asp-controller="Auth" asp-action="Logout">
+                <i class="bx bx-power-off me-2"></i>
+                <span class="align-middle">Çıkış yap</span>
+            </a>
+        </li>
+    </ul>
+</li>
