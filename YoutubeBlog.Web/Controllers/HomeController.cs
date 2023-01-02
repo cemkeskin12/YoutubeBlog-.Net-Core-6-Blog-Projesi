@@ -10,15 +10,15 @@ namespace YoutubeBlog.Web.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IArticleService articleService;
 
-        public HomeController(ILogger<HomeController> logger,IArticleService articleService)
+        public HomeController(ILogger<HomeController> logger, IArticleService articleService)
         {
             _logger = logger;
             this.articleService = articleService;
         }
 
-        public async Task<IActionResult> Index() 
+        public async Task<IActionResult> Index(Guid? categoryId, int currentPage = 1, int pageSize = 3, bool isAscending = false)
         {
-            var articles = await articleService.GetAllArticlesWithCategoryNonDeletedAsync();
+            var articles = await articleService.GetAllByPagingAsync(categoryId, currentPage, pageSize, isAscending);
             return View(articles);
         }
 
