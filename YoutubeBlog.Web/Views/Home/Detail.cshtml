@@ -1,0 +1,49 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model ArticleDto
+
+
+<section class="blog-posts">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="all-blog-posts">
+                    <div class="row">
+                        <div class="col-lg-12">
+
+                                <div class="blog-post">
+                                    <div class="blog-thumb">
+                                        <img src="~/stand-blog/assets/images/blog-post-01.jpg" alt="">
+                                    </div>
+                                    <div class="down-content">
+                                        <a href="#"><h4>@Model.Title</h4></a>
+                                        <ul class="post-info">
+                                        <li>@Model.User.FirstName @Model.User.LastName</li>
+                                        <li>@Model.CreatedDate.ToString("dd/MM/yyyy")</li>
+                                        <li><i class="fa-solid fa-eye"></i> @Model.ViewCount</li>
+                                        </ul>
+                                        <p>
+                                            @Model.Content
+                                        </p>
+                                        <div class="post-options">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <ul class="post-tags">
+                                                        <li><i class="fa fa-tags"></i></li>
+                                                    <li><a href="#">@Model.Category.Name</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
